@@ -1,12 +1,27 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
-// import { Container } from './styles';
+import Cart from './pages/Cart';
+import Home from './pages/Home';
 
-export default function src() {
-  return (
-    <View>
-      <Text>Ola mundo</Text>
-    </View>
-  );
-}
+import Header from './components/Header/index';
+
+const Routes = createAppContainer(
+  createStackNavigator(
+    {
+      Home,
+      Cart,
+    },
+    {
+      defaultNavigationOptions: navigation => ({
+        header: <Header {...navigation} />,
+      }),
+      cardStyle: {
+        backgroundColor: '#000',
+      },
+    },
+  ),
+);
+
+export default Routes;

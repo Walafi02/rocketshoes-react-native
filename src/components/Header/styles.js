@@ -30,3 +30,14 @@ export const ButtonIcon = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 `;
+
+export const AmountTotalText = styled.Text`
+  position: absolute;
+  font-size: 16px;
+  color: #fff;
+  top: -5;
+  right: -5;
+  background: #715fc1;
+  padding: 0 5px;
+  border-radius: 50px;
+`;

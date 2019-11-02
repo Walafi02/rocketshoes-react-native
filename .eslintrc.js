@@ -33,6 +33,7 @@ module.exports = {
     'react/state-in-constructor': 'off',
     'react/static-property-placement': 'off',
     'react/jsx-props-no-spreading':  'off',
+    'no-param-reassign': 'off', //remove o erro quando eu tento alterar um atributo da função
     'no-console': ['error', {allow: ['tron']}] //remove o erro no console.tron
   },
 };

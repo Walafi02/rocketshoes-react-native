@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {FlatList, ActivityIndicator, View} from 'react-native';
+import {FlatList, ActivityIndicator} from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -10,7 +10,6 @@ import {priceFormatted} from '../../util/format';
 import * as CartActions from '../../store/modules/Cart/actions';
 
 import {
-  LoadingIcon,
   Product,
   ProductTitle,
   ProductImage,
@@ -47,7 +46,6 @@ class Home extends Component {
   };
 
   renderProduct = ({item}) => {
-    // const { products } = this.state;
     const {amount} = this.props;
     return (
       <Product key={item.id}>

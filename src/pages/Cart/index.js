@@ -3,8 +3,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import {View, Text} from 'react-native';
-
 import {priceFormatted} from '../../util/format';
 
 import * as CartActions from '../../store/modules/Cart/actions';

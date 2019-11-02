@@ -41,10 +41,11 @@ class Home extends Component {
   handleAddToCart = id => {
     const {addToCartRequest} = this.props;
     addToCartRequest(id);
-    console.tron.log(id);
   };
 
   renderProduct = ({item}) => {
+    // const { products } = this.state;
+    const {amount} = this.props;
     return (
       <Product key={item.id}>
         <ProductImage
@@ -58,7 +59,9 @@ class Home extends Component {
         <ProductButton onPress={() => this.handleAddToCart(item.id)}>
           <ProductButtonView>
             <Icon name="add-shopping-cart" color="#FFF" size={20} />
-            <ProductButtonViewText>0</ProductButtonViewText>
+            <ProductButtonViewText>
+              {amount[item.id] || 0}
+            </ProductButtonViewText>
           </ProductButtonView>
           <ProductButtonText>Adicionar</ProductButtonText>
         </ProductButton>
@@ -80,10 +83,17 @@ class Home extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  amount: state.Cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+    return amount;
+  }, {}),
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Home);

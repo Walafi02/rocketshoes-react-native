@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {FlatList} from 'react-native';
+import {FlatList, ActivityIndicator, View} from 'react-native';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -10,6 +10,7 @@ import {priceFormatted} from '../../util/format';
 import * as CartActions from '../../store/modules/Cart/actions';
 
 import {
+  LoadingIcon,
   Product,
   ProductTitle,
   ProductImage,
@@ -22,6 +23,7 @@ import {
 
 class Home extends Component {
   state = {
+    loading: true,
     products: [],
   };
 
@@ -34,6 +36,7 @@ class Home extends Component {
     }));
 
     this.setState({
+      loading: false,
       products,
     });
   }
@@ -70,15 +73,21 @@ class Home extends Component {
   };
 
   render() {
-    const {products} = this.state;
+    const {products, loading} = this.state;
     return (
-      <FlatList
-        horizontal
-        data={products}
-        // extraData={this.props}
-        keyExtractor={product => String(product.id)}
-        renderItem={this.renderProduct}
-      />
+      <>
+        {loading ? (
+          <ActivityIndicator size="large" color="#fff" />
+        ) : (
+          <FlatList
+            horizontal
+            data={products}
+            // extraData={this.props}
+            keyExtractor={product => String(product.id)}
+            renderItem={this.renderProduct}
+          />
+        )}
+      </>
     );
   }
 }

@@ -6,6 +6,8 @@ import api from '../../../service/api';
 import {priceFormatted} from '../../../util/format';
 import {addToCartSuccess, updateAmountSuccess} from './actions';
 
+import NavigationService from '../../../service/navigation';
+
 function* addToCart({id}) {
   const productExist = yield select(state => state.Cart.find(p => p.id === id));
 
@@ -17,13 +19,11 @@ function* addToCart({id}) {
   const amount = currentAmount + 1;
 
   if (amount > stockAmount) {
-    // toast.error('Quantidade solicitada fora de estoque');
     Alert.alert('Quantidade solicitada fora de estoque');
     return;
   }
 
   if (productExist) {
-    // const amount = productExist.amount + 1;
     yield put(updateAmountSuccess(id, amount));
   } else {
     const response = yield call(api.get, `/products/${id}`);
@@ -35,8 +35,8 @@ function* addToCart({id}) {
     };
 
     yield put(addToCartSuccess(data));
-    //   history.push('/cart');
   }
+  NavigationService.navigate('Cart');
 }
 
 function* updateAmount({id, amount}) {

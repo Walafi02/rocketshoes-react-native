@@ -60,3 +60,10 @@ export const ProductButtonText = styled.Text`
   color: #fff;
   margin: auto;
 `;
+
+
+export const LoadingIcon = styled.ActivityIndicator.attrs({
+  color: '#fff',
+})`
+  font-size:60px;
+`;

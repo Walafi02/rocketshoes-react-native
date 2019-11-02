@@ -3,6 +3,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import {View, Text} from 'react-native';
+
 import {priceFormatted} from '../../util/format';
 
 import * as CartActions from '../../store/modules/Cart/actions';
@@ -27,6 +29,8 @@ import {
   TextPrice,
   ButtonFinish,
   ButtonFinishText,
+  CartMessageView,
+  CartMessageText,
 } from './styles';
 
 function Cart({products, removeFromCard, updateAmountRequest, total}) {
@@ -40,48 +44,56 @@ function Cart({products, removeFromCard, updateAmountRequest, total}) {
 
   return (
     <Container>
-      <Products>
-        {products.map(product => (
-          <Product key={product.id}>
-            <ProductMain>
-              <ProductImage source={{uri: product.image}} />
-              <ProductMainTexts>
-                <ProductMainTitle>{product.title} </ProductMainTitle>
-                <ProductMainPrice>{product.priceFormattad}</ProductMainPrice>
-              </ProductMainTexts>
+      {products.length === 0 ? (
+        <CartMessageView>
+          <Icon name="shopping-cart" size={90} color="#ccc" />
 
-              <ProductDelete onPress={() => removeFromCard(product.id)}>
-                <Icon name="delete-forever" size={24} color="#715fc1" />
-              </ProductDelete>
-            </ProductMain>
-            <ProductFooter>
-              <ProductControl>
-                <ProductButtonControl onPress={() => decrement(product)}>
-                  <Icon
-                    name="remove-circle-outline"
-                    size={20}
-                    color="#715fc1"
-                  />
-                </ProductButtonControl>
-                <TotalAmount value={String(product.amount)} />
-                <ProductButtonControl onPress={() => increment(product)}>
-                  <Icon name="add-circle-outline" size={20} color="#715fc1" />
-                </ProductButtonControl>
-              </ProductControl>
-              <ProductsTotal>{product.subtotal}</ProductsTotal>
-            </ProductFooter>
-          </Product>
-        ))}
+          <CartMessageText>Sem Produtos no Carrinho</CartMessageText>
+        </CartMessageView>
+      ) : (
+        <Products>
+          {products.map(product => (
+            <Product key={product.id}>
+              <ProductMain>
+                <ProductImage source={{uri: product.image}} />
+                <ProductMainTexts>
+                  <ProductMainTitle>{product.title} </ProductMainTitle>
+                  <ProductMainPrice>{product.priceFormattad}</ProductMainPrice>
+                </ProductMainTexts>
 
-        <PriceTotal>
-          <TextTotal>Total</TextTotal>
-          <TextPrice>{total}</TextPrice>
+                <ProductDelete onPress={() => removeFromCard(product.id)}>
+                  <Icon name="delete-forever" size={24} color="#715fc1" />
+                </ProductDelete>
+              </ProductMain>
+              <ProductFooter>
+                <ProductControl>
+                  <ProductButtonControl onPress={() => decrement(product)}>
+                    <Icon
+                      name="remove-circle-outline"
+                      size={20}
+                      color="#715fc1"
+                    />
+                  </ProductButtonControl>
+                  <TotalAmount value={String(product.amount)} />
+                  <ProductButtonControl onPress={() => increment(product)}>
+                    <Icon name="add-circle-outline" size={20} color="#715fc1" />
+                  </ProductButtonControl>
+                </ProductControl>
+                <ProductsTotal>{product.subtotal}</ProductsTotal>
+              </ProductFooter>
+            </Product>
+          ))}
 
-          <ButtonFinish>
-            <ButtonFinishText>Finalizar Pedido</ButtonFinishText>
-          </ButtonFinish>
-        </PriceTotal>
-      </Products>
+          <PriceTotal>
+            <TextTotal>Total</TextTotal>
+            <TextPrice>{total}</TextPrice>
+
+            <ButtonFinish>
+              <ButtonFinishText>Finalizar Pedido</ButtonFinishText>
+            </ButtonFinish>
+          </PriceTotal>
+        </Products>
+      )}
     </Container>
   );
 }

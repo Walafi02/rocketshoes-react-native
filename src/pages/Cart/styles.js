@@ -118,3 +118,15 @@ export const ButtonFinishText = styled.Text`
   color: #fff;
   padding: 10px;
 `;
+
+export const CartMessageView = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CartMessageText = styled.Text`
+  font-size: 22px;
+  font-weight: bold;
+  color: #002;
+`;

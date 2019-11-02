@@ -5,14 +5,16 @@ import {Provider} from 'react-redux';
 import './config/reactotronConfig';
 
 import Routes from './routes';
-
 import store from './store';
+import NavigationService from './service/navigation';
 
 export default function App() {
   return (
     <Provider store={store}>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
-      <Routes />
+      <Routes
+        ref={navigatorRef => NavigationService.setNavigator(navigatorRef)}
+      />
     </Provider>
   );
 }
